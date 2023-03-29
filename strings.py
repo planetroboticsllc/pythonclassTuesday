@@ -11,7 +11,7 @@ while counter < len(name):
     counter = counter + 1
 
 # join function
-strList = ["Hello", name]
+strList = ["Hello", name, "You are great at coding"]
 #mylist = [1, 4, 6, 9]
 #print(f"Hello {name}")
 toPrint = " ".join(strList)
