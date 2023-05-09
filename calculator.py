@@ -4,14 +4,40 @@ currentText = "0"
 num = 0
 op = ""
 
+def updateText():
+    global currentText
+    if len(currentText) == 0:
+        currentText = "0"
+
+    if len(currentText) > 12:
+        currentText = currentText[:12]
+
+    calcLabel.configure(text=currentText)
+
 def addText(str):
     global currentText
     if float(currentText) == 0 and str != '.' and '.' not in currentText:
         currentText = ""
 
-    currentText = currentText + str
-    calcLabel.configure(text=currentText)
+    if '.' in currentText and str == '.':
+        return
 
+    currentText = currentText + str
+    updateText()
+
+def CE():
+    global currentText
+    global num
+    global op
+    currentText = "0"
+    num = 0
+    op = ""
+    updateText()
+
+def Back():
+    global currentText
+    currentText = currentText[:len(currentText)-1]
+    updateText()
 
 app = ctk.CTk()
 app.geometry("350x500")
@@ -23,7 +49,7 @@ calcFrame = ctk.CTkFrame(master=app, width=340, height=90,
 calcFrame.grid(row=0, column=0, padx=5, pady=5)
 
 calcLabel = ctk.CTkLabel(master=calcFrame, text="0", width=330, height=80,
-                         anchor="e", font=ctk.CTkFont(size=70),
+                         anchor="e", font=ctk.CTkFont(size=50),
                          bg_color="white", fg_color="white")
 calcLabel.grid(row=0, column=0, padx=5)
 
@@ -35,12 +61,12 @@ btnFrame.grid(row=1, column=0, padx=5, pady=5)
 # row = 0
 btnCE = ctk.CTkButton(master=btnFrame, text="CE", width=75, height=65,
                       font=ctk.CTkFont(size=30),
-                      fg_color="gray", bg_color="white")
+                      fg_color="gray", bg_color="white", command=CE)
 btnCE.grid(row=0, column=0, padx=2, pady=2)
 
 btnBack = ctk.CTkButton(master=btnFrame, text="<--", width=75, height=65,
                       font=ctk.CTkFont(size=30),
-                      fg_color="gray", bg_color="white")
+                      fg_color="gray", bg_color="white", command=Back)
 btnBack.grid(row=0, column=1, padx=2, pady=2)
 
 btnPercent = ctk.CTkButton(master=btnFrame, text="%", width=75, height=65,
