@@ -47,6 +47,41 @@ def plus_minus():
         currentText = '-' + currentText
     updateText()
 
+def calculate():
+    global currentText
+    global num
+    global op
+
+    currentNum = float(currentText)
+    result = 0
+    if op == '+':
+        result = num + currentNum
+    elif op == '-':
+        result = num - currentNum
+
+    num = result
+    currentText = str(result)
+    updateText()
+
+def operation(str):
+    global currentText
+    global num
+    global op
+
+    if op == "":
+        num = float(currentText)
+        currentText = "0"
+    else:
+        calculate()
+
+    if str == '=':
+        op = ""
+    else:
+        op = str
+        currentText = "0"
+
+
+
 app = ctk.CTk()
 app.geometry("350x500")
 app.title("Calculator")
@@ -133,7 +168,7 @@ btn6.grid(row=2, column=2, padx=2, pady=2)
 
 btnSubstract = ctk.CTkButton(master=btnFrame, text="-", width=75, height=65,
                       font=ctk.CTkFont(size=30),
-                      fg_color="gray", bg_color="white")
+                      fg_color="gray", bg_color="white", command=lambda : operation('-'))
 btnSubstract.grid(row=2, column=3, padx=2, pady=2)
 
 # row = 3
@@ -157,7 +192,8 @@ btn3.grid(row=3, column=2, padx=2, pady=2)
 
 btnAdd = ctk.CTkButton(master=btnFrame, text="+", width=75, height=65,
                       font=ctk.CTkFont(size=30),
-                      fg_color="gray", bg_color="white")
+                      fg_color="gray", bg_color="white",
+                       command=lambda : operation('+'))
 btnAdd.grid(row=3, column=3, padx=2, pady=2)
 
 # row = 4
@@ -180,7 +216,8 @@ btnDot.grid(row=4, column=2, padx=2, pady=2)
 
 btnEqual = ctk.CTkButton(master=btnFrame, text="=", width=75, height=65,
                       font=ctk.CTkFont(size=30),
-                      fg_color="gray", bg_color="white")
+                      fg_color="gray", bg_color="white",
+                         command=lambda : operation('='))
 btnEqual.grid(row=4, column=3, padx=2, pady=2)
 
 app.mainloop()
